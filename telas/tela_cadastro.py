@@ -19,11 +19,30 @@ class Tela_cadastro:
 
         #caixa com opçoes do tipo sanguineo para marcar check
 
-        register_button= Button(window,text="Register",command=self.authenticate_email and self.authenticate_password).grid(column=1000,row=1000)
+        register_button= Button(window,text="Register",command=self.registration_suscefully_message if self.authenticate_email(email_input) and self.authenticate_password(password_input) else self.error_message)
+        register_button.grid(column=50,row=4)
+
         window.mainloop()
     
-    def authenticate_email(email_input):
-        email = str(email_input)
+    def authenticate_email(self,email):
+        email = str(email)
+        #if existe email no banco
+            #self.error_message()
+        #else adiciona novo paciente
+        return True
     
-    def authenticate_password(password_input):
-        password = str(password_input)
+    def authenticate_password(self,password):
+        password = str(password)
+        return True
+        '''if password.isdigit():
+            return True'''
+    
+    def error_message(self):
+        error_window = Tk()
+        message = Label(error_window,text="Erro na validação de dados, tente novamente!").grid(column=0,row=0)
+        error_window.mainloop()
+    
+    def registration_suscefully_message(self):
+        registration_suscefully_window = Tk()
+        message = Label(registration_suscefully_window,text="Cadastro realizado com sucesso!").grid(column=0,row=0)
+        

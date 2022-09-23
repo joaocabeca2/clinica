@@ -9,7 +9,7 @@ class Tela_principal:
         window.geometry('500x500')
         window.title('Nao sei o nome ainda')
         login_buttom = Button(window,text="Login",command=Tela_login.__init__).grid(column=0,row=0,padx=50,pady=50)
-        register_buttom = Button(window,text="Register",command=Tela_cadastro.__init__).grid(column=10,row=0,padx=50,pady=50)
+        register_buttom = Button(window,text="Register",command=lambda: Tela_cadastro()).grid(column=10,row=0,padx=50,pady=50)
 
         #para a janela permanecer aberta
         window.mainloop()
