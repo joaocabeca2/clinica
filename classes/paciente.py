@@ -6,7 +6,19 @@ class Paciente(Usuario):
         super().__init__(nome,email,senha,endereco,sexo)
         self.tipo_sangue = tipo_sangue
     
-    def solicitar_consulta(self,doutor)
+    def solicitar_consulta(self,doutor):
         return Agendamento(doutor)
 
+    def getNome(self):
+        return self.nome
+    def getEmail(self):
+        return self.email
+    def getSenha(self):
+        return self.senha
+    def getEndereco(self):
+        return self.endereco
+    def getSexo(self):
+        return self.sexo
+    def getTipoSangue(self):
+        return self.tipo_sangue
     #def deslogar()
