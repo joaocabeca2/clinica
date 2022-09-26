@@ -33,23 +33,22 @@ class Tela_cadastro:
 
         #caixa com opçoes do tipo sanguineo para marcar check
 
-        register_button= Button(janela_principal,text="Register",command=self.concluir_registros if self.autenticar_email(self.email_input) and self.autenticar_senha(self.senha_input) else self.mostrar_erro)
+        register_button= Button(janela_principal,text="Register",command=self.concluir_registros if self.autenticar_email() and self.autenticar_senha() else self.mostrar_erro)
         register_button.grid(column=50,row=10)
 
         janela_principal.mainloop()
     
-    def autenticar_email(self,email):
-        email = str(email)
-        #if existe email no banc"""  """o
-            #self.mostrar_erro()
-        #else adiciona novo paciente
-        return True
+    def autenticar_email(self):
+        email =  self.email_input.get()
+        comando = Comandos()
+        if comando.consultar_email() != email:
+            return False
     
-    def autenticar_senha(self,password):
-        password = str(password)
-        return True
-        '''if password.isdigit():
-            return True'''
+    def autenticar_senha(self):
+        senha = self.senha_input.get()
+        comando = Comandos()
+        if comando.consultar_senha() != senha:
+            return False
     
     def mostrar_erro(self):
         janela_erro = Tk()
