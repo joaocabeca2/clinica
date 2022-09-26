@@ -41,14 +41,22 @@ class Tela_cadastro:
     def autenticar_email(self):
         email =  self.email_input.get()
         comando = Comandos()
-        if comando.consultar_email() != email:
-            return False
+        resultados = comando.consultar_email()
+        for resultado in resultados:
+            if resultado == email:
+                return True
+            else:
+                return False
     
     def autenticar_senha(self):
         senha = self.senha_input.get()
         comando = Comandos()
-        if comando.consultar_senha() != senha:
-            return False
+        resultados = comando.consultar_senha()
+        for resultado in resultados:
+            if resultado == senha:
+                return True
+            else:
+                return False
     
     def mostrar_erro(self):
         janela_erro = Tk()

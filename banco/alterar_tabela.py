@@ -16,12 +16,14 @@ class Comandos:
 
     def consultar_email(self):
         comando = "SELECT email FROM pacientes"
-        print(self.conexao.execute(comando))
+        self.conexao.execute(comando)
+        return self.conexao.fetchall()
 
 
     def consultar_senha(self):
         comando = "SELECT senha FROM pacientes"
-        return self.conexao.execute(comando)
+        self.conexao.execute(comando)
+        return self.conexao.fetchall()
 
     # comando para adicionar na tabela de secretarias
     #     
