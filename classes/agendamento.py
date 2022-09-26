@@ -1,5 +1,5 @@
-from urllib.parse import non_hierarchical
-from medico import Medico
+from classes.usuario import Usuario
+from classes.medico import Medico
 class Agendamento:
     def __init__(self,doutor):
         self.data_consulta = None
