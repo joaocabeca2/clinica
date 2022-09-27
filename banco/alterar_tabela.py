@@ -20,10 +20,16 @@ class Comandos:
         return self.conexao.fetchall()
 
 
-    def consultar_senha(self):
-        comando = "SELECT senha FROM pacientes"
+    def consultar_senha(self,email):
+        #essa conculta é para retornar sómente um elemento pois nao pode haver mais de um cadastro com o mesmo email
+        comando = f"SELECT senha FROM pacientes WHERE email = '{email}'"
         self.conexao.execute(comando)
         return self.conexao.fetchall()
+    
+    def consultar_paciente(self,email,senha):
+        comando = "SELECT * FROM pacientes WHERE email = '{email}' AND senha = '{senha}'"
+        self.conexao.execute(comando)
+        print(self.conexao.fetchall())
 
     # comando para adicionar na tabela de secretarias
     #     

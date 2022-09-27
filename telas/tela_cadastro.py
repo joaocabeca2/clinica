@@ -7,34 +7,35 @@ from classes.paciente import Paciente
 class Tela_cadastro:
     def __init__(self):
         janela_principal = Tk()
-        self.nome_label = Label(janela_principal,text="Digite seu nome").grid(column=0,row=0)
+
+        Label(janela_principal,text="Digite seu nome").grid(column=0,row=0)
         self.nome_input = Entry(janela_principal,justify=CENTER)
         self.nome_input.grid(column=0,row=1)
 
-        self.email_label = Label(janela_principal,text="Digite seu email").grid(column=0,row=2)
+        Label(janela_principal,text="Digite seu email").grid(column=0,row=2)
         self.email_input = Entry(janela_principal,justify=CENTER)
         self.email_input.grid(column=0,row=3)
 
-        self.senha_label = Label(janela_principal,text="Digite sua senha").grid(column=0,row=4)
+        Label(janela_principal,text="Digite sua senha").grid(column=0,row=4)
         self.senha_input = Entry(janela_principal,justify=CENTER,show="*")
         self.senha_input.grid(column=0,row=5)
 
-        self.idade_label = Label(janela_principal,text="Digite sua idade").grid(column=50,row=0)
+        Label(janela_principal,text="Digite sua idade").grid(column=50,row=0)
         self.idade_input = Entry(janela_principal,justify=CENTER)
         self.idade_input.grid(column=50,row=1)
 
-        self.sexo_label = Label(janela_principal,text="Digite seu sexo").grid(column=50,row=2)
+        Label(janela_principal,text="Digite seu sexo").grid(column=50,row=2)
         self.sexo_input = Entry(janela_principal,justify=CENTER)
         self.sexo_input.grid(column=50,row=3)
 
-        self.endereco_label = Label(janela_principal,text="Digite seu endereço").grid(column=50,row=4)
+        Label(janela_principal,text="Digite seu endereço").grid(column=50,row=4)
         self.endereco_input = Entry(janela_principal,justify=CENTER)
         self.endereco_input.grid(column=50,row=5)
 
         #caixa com opçoes do tipo sanguineo para marcar check
 
-        register_button= Button(janela_principal,text="Register",command=self.concluir_registros if self.autenticar_email() and self.autenticar_senha() else self.mostrar_erro)
-        register_button.grid(column=50,row=10)
+        botao_cadastro = Button(janela_principal,text="Cadastrar",command=self.concluir_registros if self.autenticar_email() else lambda: messagebox.showerror("Cadastro", "erro ao fazer o cadastro"))
+        botao_cadastro.grid(column=50,row=10)
 
         janela_principal.mainloop()
     
@@ -43,26 +44,10 @@ class Tela_cadastro:
         comando = Comandos()
         resultados = comando.consultar_email()
         for resultado in resultados:
-            if resultado == email:
-                return True
-            else:
+            if resultado[0] == email:
                 return False
+        return True
     
-    def autenticar_senha(self):
-        senha = self.senha_input.get()
-        comando = Comandos()
-        resultados = comando.consultar_senha()
-        for resultado in resultados:
-            if resultado == senha:
-                return True
-            else:
-                return False
-    
-    def mostrar_erro(self):
-        janela_erro = Tk()
-        Label(janela_erro,text="Erro na validação de dados, tente novamente!").grid(column=0,row=0)
-        janela_erro.mainloop()
-
     def converter_valores(self):
         self.nome_input = self.nome_input.get()
         self.email_input = self.email_input.get()
@@ -78,6 +63,8 @@ class Tela_cadastro:
         comando = Comandos()
         comando.add_paciente(self.cadastrar_usuario())
         messagebox.showinfo("Cadastro","Cadastro realizado com sucesso")
+    
+    #def verificar_campo_preenchido(self);
 
     def concluir_registros(self):
         self.converter_valores()
