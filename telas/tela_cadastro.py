@@ -6,38 +6,38 @@ from classes.paciente import Paciente
 
 class Tela_cadastro:
     def __init__(self):
-        janela_principal = Tk()
+        janela_cadastro = Tk()
 
-        Label(janela_principal,text="Digite seu nome").grid(column=0,row=0)
-        self.nome_input = Entry(janela_principal,justify=CENTER)
+        Label(janela_cadastro,text="Digite seu nome").grid(column=0,row=0)
+        self.nome_input = Entry(janela_cadastro,justify=CENTER)
         self.nome_input.grid(column=0,row=1)
 
-        Label(janela_principal,text="Digite seu email").grid(column=0,row=2)
-        self.email_input = Entry(janela_principal,justify=CENTER)
+        Label(janela_cadastro,text="Digite seu email").grid(column=0,row=2)
+        self.email_input = Entry(janela_cadastro,justify=CENTER)
         self.email_input.grid(column=0,row=3)
 
-        Label(janela_principal,text="Digite sua senha").grid(column=0,row=4)
-        self.senha_input = Entry(janela_principal,justify=CENTER,show="*")
+        Label(janela_cadastro,text="Digite sua senha").grid(column=0,row=4)
+        self.senha_input = Entry(janela_cadastro,justify=CENTER,show="*")
         self.senha_input.grid(column=0,row=5)
 
-        Label(janela_principal,text="Digite sua idade").grid(column=50,row=0)
-        self.idade_input = Entry(janela_principal,justify=CENTER)
+        Label(janela_cadastro,text="Digite sua idade").grid(column=50,row=0)
+        self.idade_input = Entry(janela_cadastro,justify=CENTER)
         self.idade_input.grid(column=50,row=1)
 
-        Label(janela_principal,text="Digite seu sexo").grid(column=50,row=2)
-        self.sexo_input = Entry(janela_principal,justify=CENTER)
+        Label(janela_cadastro,text="Digite seu sexo").grid(column=50,row=2)
+        self.sexo_input = Entry(janela_cadastro,justify=CENTER)
         self.sexo_input.grid(column=50,row=3)
 
-        Label(janela_principal,text="Digite seu endereço").grid(column=50,row=4)
-        self.endereco_input = Entry(janela_principal,justify=CENTER)
+        Label(janela_cadastro,text="Digite seu endereço").grid(column=50,row=4)
+        self.endereco_input = Entry(janela_cadastro,justify=CENTER)
         self.endereco_input.grid(column=50,row=5)
 
         #caixa com opçoes do tipo sanguineo para marcar check
 
-        botao_cadastro = Button(janela_principal,text="Cadastrar",command=self.concluir_registros if self.autenticar_email() else lambda: messagebox.showerror("Cadastro", "erro ao fazer o cadastro"))
+        botao_cadastro = Button(janela_cadastro,text="Cadastrar",command=self.concluir_registros if self.autenticar_email() else lambda: messagebox.showerror("Cadastro", "erro ao fazer o cadastro"))
         botao_cadastro.grid(column=50,row=10)
 
-        janela_principal.mainloop()
+        janela_cadastro.mainloop()
     
     def autenticar_email(self):
         email =  self.email_input.get()
