@@ -69,4 +69,5 @@ class Tela_cadastro:
     def concluir_registros(self):
         self.converter_valores()
         self.inserir_paciente_banco()
+    
         
