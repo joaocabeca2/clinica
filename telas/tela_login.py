@@ -23,21 +23,21 @@ class Tela_login:
     def validar_email(self):
         comando = Comandos()
         #pegando a tupla da consulta feita de acordo com email e senha
-        paciente = comando.consultar_paciente(self.email_input.get(),self.senha_input.get())[0]
-        if paciente != []:
+        try:
+            paciente = comando.consultar_paciente(self.email_input.get(),self.senha_input.get())[0]
             self.paciente = Paciente(paciente[1],paciente[2],paciente[3],paciente[4],paciente[5],paciente[6],paciente[7])
             return True
-        else:
-            messagebox.showinfo("Entrar", "Erro ao tentar realizar o login, tente novamente!")
-            return False
+        except(Exception):
+            messagebox.showwarning("Entrar", "Erro ao tentar realizar o login, email ou senha incorretos!")
+            self.reiniciar_tela_login()
 
     def entrar_tela_paciente(self):
         if self.validar_email():
             Tela_paciente(self.paciente)
             self.janela_login.destroy()
-
-        else:
-            messagebox.showinfo("Entrar", "Erro ao tentar realizar o login, tente novamente!")
-            self.janela_login.destroy()
+    
+    def reiniciar_tela_login(self):
+        self.janela_login.destroy()
+        Tela_login()
             
 
