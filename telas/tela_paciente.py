@@ -13,5 +13,8 @@ class Tela_paciente:
     def deslogar(self):
         self.janela_paciente.destroy()
     
+    def agendar_consulta(self):
+        
+    
     #def agendar_consulta(self):
 

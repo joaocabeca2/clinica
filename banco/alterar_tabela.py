@@ -7,9 +7,9 @@ class Comandos:
         self.conexao = Conexao().conexao.cursor()
 
     def add_paciente(self,paciente=Paciente):
-        comando = f"INSERT INTO pacientes(nome,email,senha,endereco,sexo,idade,tipo_sangue)\
+        comando = f"INSERT INTO pacientes(nome,email,senha,endereco,sexo,idade,tipo_sangue,data_inscricao)\
         VALUES('{paciente.getNome()}','{paciente.getEmail()}','{paciente.getSenha()}','{paciente.getEndereco()}',\
-        '{paciente.getSexo()}',{paciente.getIdade()},'{paciente.getTipoSangue()}');"
+        '{paciente.getSexo()}',{paciente.getIdade()},'{paciente.getTipoSangue()}','{paciente.getDataInscricao()}');"
 
         self.conexao.execute(comando)
         self.conexao.commit()

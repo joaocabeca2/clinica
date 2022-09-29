@@ -1,8 +1,10 @@
+from msilib.schema import ComboBox
 from tkinter import *
 from tkinter import Tk,ttk
 from tkinter import messagebox
 from banco.alterar_tabela import Comandos
 from classes.paciente import Paciente
+from datetime import date
 
 class Tela_cadastro:
     def __init__(self):
@@ -32,7 +34,9 @@ class Tela_cadastro:
         self.endereco_input = Entry(self.janela_cadastro,justify=CENTER)
         self.endereco_input.grid(column=50,row=5)
 
-        #caixa com opçoes do tipo sanguineo para marcar check
+        Label(self.janela_cadastro,text="Tipo Sanguineo").grid(column=50,row=6)
+        self.tipo_sangue = ttk.Combobox(self.janela_cadastro,values=self.opcoes_tipos_sangue())
+        self.tipo_sangue.grid(column=50,row=7)
 
         botao_cadastro = Button(self.janela_cadastro,text="Cadastrar",command=self.concluir_registros if self.autenticar_email() else lambda: messagebox.showerror("Cadastro", "erro ao fazer o cadastro"))
         botao_cadastro.grid(column=50,row=10)
@@ -56,17 +60,19 @@ class Tela_cadastro:
             self.endereco_input = self.endereco_input.get()
             self.sexo_input = self.sexo_input.get()
             self.idade_input = int(self.idade_input.get())
+            self.tipo_sangue = self.tipo_sangue.get()
         except(Exception):
             messagebox.showwarning("Cadastro","algum campo está vazio ou com valores errados")
             self.reiniciar_tela()
 
     def cadastrar_usuario(self):
-        return Paciente(self.nome_input,self.email_input,self.senha_input,self.endereco_input,self.sexo_input,self.idade_input,"A+")
+        return Paciente(self.nome_input,self.email_input,self.senha_input,self.endereco_input,self.sexo_input,self.idade_input,self.tipo_sangue,date.today())
     
     def inserir_paciente_banco(self):
         comando = Comandos()
         comando.add_paciente(self.cadastrar_usuario())
         messagebox.showinfo("Cadastro","Cadastro realizado com sucesso")
+        self.janela_cadastro.destroy()
     
     #def verificar_campo_preenchido(self);
 
@@ -77,5 +83,9 @@ class Tela_cadastro:
     def reiniciar_tela(self):
         self.janela_cadastro.destroy()
         Tela_cadastro()
+    
+    def opcoes_tipos_sangue(self):
+        return ["A+","A-","B+","B-","AB+","AB-","O+","O-"]
+
     
         
