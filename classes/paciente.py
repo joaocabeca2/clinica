@@ -6,8 +6,8 @@ class Paciente(Usuario):
         super().__init__(nome,email,senha,endereco,sexo,idade,data_inscricao)
         self.tipo_sangue = tipo_sangue
     
-    def solicitar_consulta(self,doutor):
-        return Agendamento(doutor)
+    def solicitar_consulta(self):
+        return Agendamento()
 
     def getTipoSangue(self):
         return self.tipo_sangue

@@ -1,9 +1,10 @@
 from usuario import Usuario
+from classes.agendamento import Agendamento
+
 class Secretaria(Usuario):
-    def __init__(self,nome,email,senha,endereco,sexo,cargo):
-        super().__init__(nome,email,senha,endereco,sexo)
+    def __init__(self,nome,email,senha,endereco,sexo,idade,cargo,data_inscricao):
+        super().__init__(nome,email,senha,endereco,sexo,idade,data_inscricao)
         self.cargo = cargo
-        self.lista_agendamentos = []
 
     #todo agendamento que o paciente fizer pelo site vai ir para uma lista que será devidamente agendada pela secretaria
     #def agendar_consulta(self):

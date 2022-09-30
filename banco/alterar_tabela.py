@@ -30,6 +30,11 @@ class Comandos:
         comando = f"SELECT * FROM pacientes WHERE email = '{email}' AND senha = '{senha}'"
         self.conexao.execute(comando)
         return self.conexao.fetchall()
+    
+    def consultar_medico(self):
+        comando = "SELECT * FROM medicos"
+        self.conexao.execute(comando)
+        return self.conexao.fetchall()
 
     # comando para adicionar na tabela de secretarias
     #     
