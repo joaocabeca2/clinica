@@ -1,12 +1,15 @@
 from tkinter import *
 from tkinter import ttk
+from tkinter import messagebox
 from classes.medico import Medico
 from classes.paciente import Paciente
 from classes.agendamento import Agendamento
+from banco.alterar_tabela import Comandos
 from datetime import date
+
 class Tela_paciente:
-    def __init__(self,paciente=Paciente,doutor=Medico()):
-        self.doutor = doutor
+    def __init__(self,paciente=Paciente,doutor=Medico):
+        self.doutor =  Medico()
         self.paciente = paciente
         self.agendado = False
         self.janela_paciente = Tk()
@@ -20,9 +23,10 @@ class Tela_paciente:
         #Label(self.janela_paciente,text=f"Data de Inscrição: {self.paciente.getDataInscricao()}",justify=RIGHT).grid()
 
         Label(self.janela_paciente,text="Descreva o motivo do porque deseja consultar na clinica:",padx=10,pady=10).grid()
-        Text(self.janela_paciente,width=40,height=10).grid()
+        self.motivo_consulta = Text(self.janela_paciente,width=40,height=10)
+        self.motivo_consulta.grid()
 
-        Label(self.janela_paciente,text="Dia da semana").grid()
+        Label(self.janela_paciente,text="Dia do mês").grid()
         self.dia = ttk.Combobox(self.janela_paciente,values=self.doutor.getDiaAtendimento())
         self.dia.grid()
 
@@ -30,7 +34,7 @@ class Tela_paciente:
         self.horario = ttk.Combobox(self.janela_paciente,values=self.doutor.listar_horarios())
         self.horario.grid()
 
-        Button(self.janela_paciente,text="Agendar consulta",command='').grid()
+        Button(self.janela_paciente,text="Agendar consulta",command=self.agendar_consulta).grid()
         Button(self.janela_paciente,text="Deslogar",command=self.deslogar).grid()
 
         janela_paciente = mainloop()
@@ -39,6 +43,10 @@ class Tela_paciente:
         self.janela_paciente.destroy()
     
     def agendar_consulta(self):
-        return Agendamento("data consulta",date.today(),"hora consulta","motivo")
+        comando = Comandos()
+        agendamento = Agendamento(self.dia.get(),date.today(),self.horario.get(),self.motivo_consulta.get(1.0,END),self.paciente)
+        comando.add_agendamento(agendamento)
+        messagebox.showinfo("Agendamento","Solicitação de agendamento feito!")
+        
     #def agendar_consulta(self):
 

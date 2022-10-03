@@ -1,7 +1,7 @@
 class Medico:
     def __init__(self):
         self.doutor = "joaocabeca"
-        self.dia_atendimento = []
+        self.dia_atendimento = list(range(1,31))
         self.horario_atendimento = "08 ás 17"
 
     def getDoutor(self):
@@ -25,8 +25,5 @@ class Medico:
             lista.append(str(hora_consulta)+":"+"00")
         return lista
     
-    def listar_dias(self):
-        #tirando os finais de semana
-
-'''medico = Medico("j","a","a","a","a",56,"a")
-print(medico.listar_horarios())  '''  
+    '''  def listar_dias(self):
+        #tirando os finais de semana'''

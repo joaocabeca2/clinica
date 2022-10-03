@@ -1,5 +1,6 @@
 from banco.conexao_sql import Conexao
 from classes.paciente import Paciente
+from classes.agendamento import Agendamento
 
 class Comandos:
     #comando para adicionar na tabela de pacientes
@@ -13,6 +14,18 @@ class Comandos:
 
         self.conexao.execute(comando)
         self.conexao.commit()
+    
+    def add_agendamento(self,agendamento=Agendamento):
+        comando = f"INSERT INTO agendamentos(id_paciente,data_consulta,data_consulta_marcada,hora_consulta,motivo_consulta)\
+            VALUES('{self.consultar_id_paciente(agendamento.getPaciente())[0][0]}','{agendamento.getDataConsulta()}','{agendamento.getDataMarcacao()}',\
+                '{agendamento.getHoraConsulta()}','{agendamento.getMotivoConsulta()}');"
+        self.conexao.execute(comando)
+        self.conexao.commit()
+    
+    def consultar_id_paciente(self,paciente=Paciente):
+        comando = f"SELECT id FROM pacientes WHERE email = '{paciente.getEmail()}'"
+        self.conexao.execute(comando)
+        return self.conexao.fetchall()
 
     def consultar_email(self):
         comando = "SELECT email FROM pacientes"
