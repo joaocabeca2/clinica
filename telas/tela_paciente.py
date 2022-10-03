@@ -11,7 +11,6 @@ class Tela_paciente:
     def __init__(self,paciente=Paciente,doutor=Medico):
         self.doutor =  Medico()
         self.paciente = paciente
-        self.agendado = False
         self.janela_paciente = Tk()
         self.janela_paciente.geometry("500x500")
         #lista com medido e seu horario de disponibilidade
@@ -44,9 +43,18 @@ class Tela_paciente:
     
     def agendar_consulta(self):
         comando = Comandos()
-        agendamento = Agendamento(self.dia.get(),date.today(),self.horario.get(),self.motivo_consulta.get(1.0,END),self.paciente)
-        comando.add_agendamento(agendamento)
-        messagebox.showinfo("Agendamento","Solicitação de agendamento feito!")
-        
-    #def agendar_consulta(self):
+        #so posso agendar consulta se naoo houver uma ja marcada, mas pode solicitar agendamento de quantas quiser
+        if not self.paciente.isConsultaAgendada():
+            try:
+                agendamento = Agendamento(self.dia.get(),date.today(),self.horario.get(),self.motivo_consulta.get(1.0,END),self.paciente)
+                comando.add_agendamento(agendamento)
+                messagebox.showinfo("Agendamento","Solicitação de agendamento feito!")
+                #a coluna boolean no sql esta como string entao ...
+                self.paciente.setConsultaAgendada(True)
+                comando.alterar_status_agendamento(False)
+            except(Exception):
+                messagebox.showwarning("Agendamento","algum campo está vazio ou com valores errados")
+        else:
+            messagebox.showwarning("Agendamento","Você já possui uma consulta marcada com a Dr")
+            
 

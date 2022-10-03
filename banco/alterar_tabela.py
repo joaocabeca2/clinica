@@ -8,17 +8,24 @@ class Comandos:
         self.conexao = Conexao().conexao.cursor()
 
     def add_paciente(self,paciente=Paciente):
-        comando = f"INSERT INTO pacientes(nome,email,senha,endereco,sexo,idade,tipo_sangue,data_inscricao)\
+        comando = f"INSERT INTO pacientes(nome,email,senha,endereco,sexo,idade,tipo_sangue,data_inscricao,consulta_agendada)\
         VALUES('{paciente.getNome()}','{paciente.getEmail()}','{paciente.getSenha()}','{paciente.getEndereco()}',\
-        '{paciente.getSexo()}',{paciente.getIdade()},'{paciente.getTipoSangue()}','{paciente.getDataInscricao()}');"
+        '{paciente.getSexo()}',{paciente.getIdade()},'{paciente.getTipoSangue()}','{paciente.getDataInscricao()}','{str(paciente.isConsultaAgendada())}');"
 
         self.conexao.execute(comando)
         self.conexao.commit()
     
     def add_agendamento(self,agendamento=Agendamento):
+        id_paciente = self.consultar_id_paciente(agendamento.getPaciente())[0][0]
         comando = f"INSERT INTO agendamentos(id_paciente,data_consulta,data_consulta_marcada,hora_consulta,motivo_consulta)\
-            VALUES('{self.consultar_id_paciente(agendamento.getPaciente())[0][0]}','{agendamento.getDataConsulta()}','{agendamento.getDataMarcacao()}',\
+            VALUES('{id_paciente}','{agendamento.getDataConsulta()}','{agendamento.getDataMarcacao()}',\
                 '{agendamento.getHoraConsulta()}','{agendamento.getMotivoConsulta()}');"
+        self.conexao.execute(comando)
+        self.conexao.commit()
+    
+    def alterar_status_agendamento(self,status_consulta,id_paciente):
+        comando = f"UPDATE pacientes SET consulta_agendada='{str(status_consulta)}'\
+            WHERE id='{id_paciente}'"
         self.conexao.execute(comando)
         self.conexao.commit()
     
@@ -44,10 +51,10 @@ class Comandos:
         self.conexao.execute(comando)
         return self.conexao.fetchall()
     
-    def consultar_medico(self):
+    '''def consultar_medico(self):
         comando = "SELECT * FROM medicos"
         self.conexao.execute(comando)
-        return self.conexao.fetchall()
+        return self.conexao.fetchall()'''
 
     # comando para adicionar na tabela de secretarias
     #     
