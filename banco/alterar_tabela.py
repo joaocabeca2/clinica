@@ -39,7 +39,6 @@ class Comandos:
         self.conexao.execute(comando)
         return self.conexao.fetchall()
 
-
     def consultar_senha(self,email):
         #essa conculta é para retornar sómente um elemento pois nao pode haver mais de um cadastro com o mesmo email
         comando = f"SELECT senha FROM pacientes WHERE email = '{email}'"
@@ -51,10 +50,11 @@ class Comandos:
         self.conexao.execute(comando)
         return self.conexao.fetchall()
     
-    '''def consultar_medico(self):
-        comando = "SELECT * FROM medicos"
+    def consultar_agendamentos(self):
+        comando = f"SELECT * FROM agendamentos"
         self.conexao.execute(comando)
-        return self.conexao.fetchall()'''
+        return self.conexao.fetchall()
+    
 
     # comando para adicionar na tabela de secretarias
     #     

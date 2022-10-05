@@ -12,6 +12,7 @@ class Tela_paciente:
         self.doutor =  Medico()
         self.paciente = paciente
         self.janela_paciente = Tk()
+        self.janela_paciente.title(f"Bem vindo {self.paciente.getNome()}")
         self.janela_paciente.geometry("500x500")
         #lista com medido e seu horario de disponibilidade
         Label(self.janela_paciente,text=f"Nome: {self.paciente.getNome()}",justify=LEFT).grid()
@@ -36,7 +37,7 @@ class Tela_paciente:
         Button(self.janela_paciente,text="Agendar consulta",command=self.agendar_consulta).grid()
         Button(self.janela_paciente,text="Deslogar",command=self.deslogar).grid()
 
-        janela_paciente = mainloop()
+        self.janela_paciente.mainloop()
 
     def deslogar(self):
         self.janela_paciente.destroy()
@@ -44,14 +45,15 @@ class Tela_paciente:
     def agendar_consulta(self):
         comando = Comandos()
         #so posso agendar consulta se naoo houver uma ja marcada, mas pode solicitar agendamento de quantas quiser
-        if not self.paciente.isConsultaAgendada():
+        if self.paciente.isConsultaAgendada() == False:
             try:
                 agendamento = Agendamento(self.dia.get(),date.today(),self.horario.get(),self.motivo_consulta.get(1.0,END),self.paciente)
                 comando.add_agendamento(agendamento)
+                id_paciente = comando.consultar_id_paciente(self.paciente)[0][0]
                 messagebox.showinfo("Agendamento","Solicitação de agendamento feito!")
                 #a coluna boolean no sql esta como string entao ...
                 self.paciente.setConsultaAgendada(True)
-                comando.alterar_status_agendamento(False)
+                comando.alterar_status_agendamento(False,id_paciente)
             except(Exception):
                 messagebox.showwarning("Agendamento","algum campo está vazio ou com valores errados")
         else:

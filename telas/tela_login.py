@@ -3,6 +3,7 @@ from tkinter import messagebox
 from banco.alterar_tabela import Comandos
 from classes.paciente import Paciente
 from tela_paciente import Tela_paciente
+from tela_admin import Tela_admin
 
 class Tela_login:
     def __init__(self):
@@ -31,10 +32,18 @@ class Tela_login:
             messagebox.showwarning("Entrar", "Erro ao tentar realizar o login, email ou senha incorretos!")
             self.reiniciar_tela_login()
 
+    def verificar_admin(self):
+        return self.email_input.get() == "admin" and self.senha_input.get() == "admin"
+
     def entrar_tela_paciente(self):
-        if self.validar_email():
-            Tela_paciente(self.paciente)
+        if self.verificar_admin():
             self.janela_login.destroy()
+            Tela_admin()
+        
+        else: 
+            self.validar_email()
+            self.janela_login.destroy()
+            Tela_paciente(self.paciente)  
     
     def reiniciar_tela_login(self):
         self.janela_login.destroy()
