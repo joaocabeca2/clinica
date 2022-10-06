@@ -45,18 +45,13 @@ class Tela_paciente:
     def agendar_consulta(self):
         comando = Comandos()
         #so posso agendar consulta se naoo houver uma ja marcada, mas pode solicitar agendamento de quantas quiser
-        if self.paciente.isConsultaAgendada() == False:
-            try:
-                agendamento = Agendamento(self.dia.get(),date.today(),self.horario.get(),self.motivo_consulta.get(1.0,END),self.paciente)
-                comando.add_agendamento(agendamento)
-                id_paciente = comando.consultar_id_paciente(self.paciente)[0][0]
-                messagebox.showinfo("Agendamento","Solicitação de agendamento feito!")
-                #a coluna boolean no sql esta como string entao ...
-                self.paciente.setConsultaAgendada(True)
-                comando.alterar_status_agendamento(False,id_paciente)
-            except(Exception):
-                messagebox.showwarning("Agendamento","algum campo está vazio ou com valores errados")
-        else:
-            messagebox.showwarning("Agendamento","Você já possui uma consulta marcada com a Dr")
+        id = comando.consultar_quantidade_agendamentos()[0][0] + 1
+        try:
+            agendamento = Agendamento(id,self.dia.get(),date.today(),self.horario.get(),self.motivo_consulta.get(1.0,END),False,self.paciente)
+            comando.add_agendamento(agendamento,self.paciente)
+            messagebox.showinfo("Agendamento","Solicitação de agendamento feito!")
+            #a coluna boolean no sql esta como string entao ...
+        except(Exception):
+            messagebox.showwarning("Agendamento","algum campo está vazio ou com valores errados")
             
 

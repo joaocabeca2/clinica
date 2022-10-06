@@ -15,6 +15,4 @@ class Tela_principal:
         #para a janela permanecer aberta
         self.janela_principal.mainloop()
 
-    
-
 tela = Tela_principal()

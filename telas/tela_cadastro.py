@@ -66,7 +66,9 @@ class Tela_cadastro:
             self.reiniciar_tela()
 
     def cadastrar_usuario(self):
-        return Paciente(self.nome_input,self.email_input,self.senha_input,self.endereco_input,self.sexo_input,self.idade_input,self.tipo_sangue,date.today(),False)
+        comando = Comandos()
+        id = comando.consultar_quantidade_pacientes()[0][0] + 1
+        return Paciente(id,self.nome_input,self.email_input,self.senha_input,self.endereco_input,self.sexo_input,self.idade_input,self.tipo_sangue,date.today(),False)
     
     def inserir_paciente_banco(self):
         comando = Comandos()

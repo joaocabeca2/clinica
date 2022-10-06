@@ -1,5 +1,6 @@
 class Usuario:
-    def __init__(self,nome,email,senha,endereco,sexo,idade,data_inscricao):
+    def __init__(self,id,nome,email,senha,endereco,sexo,idade,data_inscricao):
+        self.id = id
         self.nome = nome
         self.email = email
         self.senha = senha
@@ -8,6 +9,8 @@ class Usuario:
         self.idade = idade
         self.data_inscricao = data_inscricao
 
+    def getID(self):
+        return self.id
     def getNome(self):
         return self.nome
     def getEmail(self):
