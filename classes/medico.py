@@ -24,6 +24,3 @@ class Medico:
             hora_consulta += 1
             lista.append(str(hora_consulta)+":"+"00")
         return lista
-    
-    '''  def listar_dias(self):
-        #tirando os finais de semana'''

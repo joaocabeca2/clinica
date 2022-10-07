@@ -9,6 +9,8 @@ from datetime import date
 class Tela_cadastro:
     def __init__(self):
         self.janela_cadastro = Tk()
+        self.janela_cadastro.geometry("500x500")
+        self.janela_cadastro.title("Cadastro")
 
         Label(self.janela_cadastro,text="Digite seu nome").grid(column=0,row=0)
         self.nome_input = Entry(self.janela_cadastro,justify=CENTER)
