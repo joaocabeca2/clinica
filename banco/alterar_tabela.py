@@ -16,10 +16,19 @@ class Comandos:
         self.conexao.commit()
     
     def add_agendamento(self,agendamento=Agendamento,paciente=Paciente):
-        status_consulta =  "Agendamento confirmado" if agendamento.getStatusConsulta() else "Aguardando Confirmação"
+        status_consulta =  "Agendamento Confirmado" if agendamento.getStatusConsulta() else "Aguardando Confirmação"
 
         comando = f"INSERT INTO agendamentos(id,id_paciente,data_consulta,data_agendamento,hora_consulta,motivo_consulta,status_consulta)\
             VALUES('{agendamento.getID()}','{paciente.getID()}','{agendamento.getDataConsulta()}','{agendamento.getDataAgendamento()}',\
+                '{agendamento.getHoraConsulta()}','{agendamento.getMotivoConsulta()}','{status_consulta}');"
+        self.conexao.execute(comando)
+        self.conexao.commit()
+    
+    def add_agendamento_gambiarra(self,agendamento=Agendamento,id_paciente=int):
+        status_consulta =  "Agendamento Confirmado" if agendamento.getStatusConsulta() else "Aguardando Confirmação"
+
+        comando = f"INSERT INTO agendamentos(id,id_paciente,data_consulta,data_agendamento,hora_consulta,motivo_consulta,status_consulta)\
+            VALUES('{agendamento.getID()}','{id_paciente}','{agendamento.getDataConsulta()}','{agendamento.getDataAgendamento()}',\
                 '{agendamento.getHoraConsulta()}','{agendamento.getMotivoConsulta()}','{status_consulta}');"
         self.conexao.execute(comando)
         self.conexao.commit()
@@ -51,10 +60,16 @@ class Comandos:
         return self.conexao.fetchall()
     
     def consultar_agendamentos(self):
-        comando = f"SELECT * FROM agendamentos"
+        comando = "SELECT * FROM agendamentos"
         self.conexao.execute(comando)
         return self.conexao.fetchall()
     
+    def consultar_agendamento_especifico(self,id_agendamento):
+        comando = f"SELECT * FROM agendamentos WHERE id = '{id_agendamento}'"
+        self.conexao.execute(comando)
+        return self.conexao.fetchall()
 
-    # comando para adicionar na tabela de secretarias
-    #     
+    def deletar_agendamento(self,id):
+        comando = f"DELETE FROM agendamentos WHERE id = '{id}'" 
+        self.conexao.execute(comando)
+        self.conexao.commit()
