@@ -9,16 +9,17 @@ class Tela_login:
     def __init__(self):
         self.paciente = None
         self.janela_login = Tk()
-        Label(self.janela_login,text="Digite seu email").grid(column=0,row=0)
+        self.janela_login.title("Login")
+        Label(self.janela_login,text="Email").grid(column=0,row=0,sticky=E)
         self.email_input = Entry(self.janela_login,justify=CENTER)
-        self.email_input.grid(column=0,row=1)
+        self.email_input.grid(column=1,row=0)
 
-        Label(self.janela_login,text="Digite sua senha").grid(column=0,row=2)
+        Label(self.janela_login,text="Senha").grid(column=0,row=2,sticky=E)
         self.senha_input = Entry(self.janela_login,justify=CENTER,show="*")
-        self.senha_input.grid(column=0,row=3)
+        self.senha_input.grid(column=1,row=2)
 
         botao_login = Button(self.janela_login,text="Entrar",command=self.entrar_tela_paciente)
-        botao_login.grid(column=0,row=4)
+        botao_login.grid(column=1,row=3,pady=5,padx=0)
         self.janela_login.mainloop()
 
     def validar_email(self):

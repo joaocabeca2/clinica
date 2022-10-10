@@ -9,39 +9,39 @@ from datetime import date
 class Tela_cadastro:
     def __init__(self):
         self.janela_cadastro = Tk()
-        self.janela_cadastro.geometry("500x500")
+        #self.janela_cadastro.geometry("500x500")
         self.janela_cadastro.title("Cadastro")
 
-        Label(self.janela_cadastro,text="Digite seu nome").grid(column=0,row=0)
+        Label(self.janela_cadastro,text="Nome").grid(column=0,row=0,sticky=E)
         self.nome_input = Entry(self.janela_cadastro,justify=CENTER)
-        self.nome_input.grid(column=0,row=1)
+        self.nome_input.grid(column=1,row=0)
 
-        Label(self.janela_cadastro,text="Digite seu email").grid(column=0,row=2)
+        Label(self.janela_cadastro,text="Email").grid(column=0,row=1,sticky=E)
         self.email_input = Entry(self.janela_cadastro,justify=CENTER)
-        self.email_input.grid(column=0,row=3)
+        self.email_input.grid(column=1,row=1)
 
-        Label(self.janela_cadastro,text="Digite sua senha").grid(column=0,row=4)
+        Label(self.janela_cadastro,text="Senha").grid(column=0,row=2,sticky=E)
         self.senha_input = Entry(self.janela_cadastro,justify=CENTER,show="*")
-        self.senha_input.grid(column=0,row=5)
+        self.senha_input.grid(column=1,row=2)
 
-        Label(self.janela_cadastro,text="Digite sua idade").grid(column=50,row=0)
+        Label(self.janela_cadastro,text="Idade").grid(column=0,row=3,sticky=E)
         self.idade_input = Entry(self.janela_cadastro,justify=CENTER)
-        self.idade_input.grid(column=50,row=1)
+        self.idade_input.grid(column=1,row=3)
 
-        Label(self.janela_cadastro,text="Digite seu sexo").grid(column=50,row=2)
+        Label(self.janela_cadastro,text="Sexo").grid(column=2,row=0,sticky=E)
         self.sexo_input = Entry(self.janela_cadastro,justify=CENTER)
-        self.sexo_input.grid(column=50,row=3)
+        self.sexo_input.grid(column=3,row=0)
 
-        Label(self.janela_cadastro,text="Digite seu endereço").grid(column=50,row=4)
+        Label(self.janela_cadastro,text="Endereço").grid(column=2,row=1,sticky=E)
         self.endereco_input = Entry(self.janela_cadastro,justify=CENTER)
-        self.endereco_input.grid(column=50,row=5)
+        self.endereco_input.grid(column=3,row=1)
 
-        Label(self.janela_cadastro,text="Tipo Sanguineo").grid(column=50,row=6)
+        Label(self.janela_cadastro,text="Tipo Sanguineo").grid(column=2,row=2,sticky=E)
         self.tipo_sangue = ttk.Combobox(self.janela_cadastro,values=self.opcoes_tipos_sangue())
-        self.tipo_sangue.grid(column=50,row=7)
+        self.tipo_sangue.grid(column=3,row=2)
 
         botao_cadastro = Button(self.janela_cadastro,text="Cadastrar",command=self.concluir_registros if self.autenticar_email() else lambda: messagebox.showerror("Cadastro", "erro ao fazer o cadastro"))
-        botao_cadastro.grid(column=50,row=10)
+        botao_cadastro.grid(column=2,row=10)
 
         self.janela_cadastro.mainloop()
     
